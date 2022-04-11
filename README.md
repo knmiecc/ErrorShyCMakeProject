@@ -9,5 +9,5 @@ To have this project work you need to install the following files:
 - ceedling 0.31.1, installed per user via gem install --user-install ceedling <-- important to install it locally
 - gcc version 8.3 or greater
 - optionally gcov and gcovr, gcov through local package manager, gcovr through pip3 install gcovr.
-- add to your environment .bashrc if necessary: export PATH:"$PATH":"${HOME}".gem/ruby/2.7.0/bin
+- add to your environment .bashrc if necessary: ``export PATH:"$PATH":"${HOME}".gem/ruby/2.7.0/bin``
 
