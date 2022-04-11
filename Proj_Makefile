@@ -1,0 +1,39 @@
+PROJECT_DIR			:= $(PWD)
+PROJECT_BUILD_DIR	:= $(PROJECT_DIR)/build
+
+CMAKE_BIN := 
+
+.PHONY: init
+init: $(PROJECT_BUILD_DIR)
+	cmake -j 14 -S$(PROJECT_DIR) -B$(PROJECT_BUILD_DIR) -DCMAKE_BUILD_TYPE:STRING=Debug -G "Unix Makefiles" 
+
+.PHONY: all
+all:
+	cmake --build $(PROJECT_BUILD_DIR) --config Debug -j 14 --
+
+.PHONY: test
+test:
+	ceedling
+
+.PHONY: clean
+clean:
+	rm -rf build
+	rm -rf test/internals/unity/*
+	rm -f project.yml
+
+.PHONY: cover
+cover:
+	@PLATFORM=$$(uname -s) ;\
+	if [ "$${PLATFORM}" = "AIX" ] ; then \
+		printf "%s\n" 'test coverage is not supported on AIX' ;\
+	else \
+		ceedling gcov:all utils:gcov ;\
+	fi
+	
+
+########################################################
+# Internals
+########################################################
+
+$(PROJECT_BUILD_DIR): 
+	@mkdir $@
